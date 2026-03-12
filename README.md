@@ -1,118 +1,109 @@
-University ERP Project
+# University ERP System
 
-Overview
-This project is a desktop-based University ERP application developed in Java using Swing for the user interface and MySQL for data storage. It allows three types of users (Student, Instructor, Admin) to log in and perform different tasks related to course registration, grading, and management.
+![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=java&logoColor=white) 
+![MySQL](https://img.shields.io/badge/MySQL-005C84?style=for-the-badge&logo=mysql&logoColor=white) 
+![Maven](https://img.shields.io/badge/Maven-C71A36?style=for-the-badge&logo=apache-maven&logoColor=white)
 
-Features
+## Overview
+The **University ERP System** is a robust, desktop-based enterprise resource planning application designed for educational institutions. Developed in **Java** utilizing **Swing** for a responsive user interface and **MySQL** for persistent data storage, the application serves three primary roles—Student, Instructor, and Administrator—providing role-specific tools for course registration, grading, and systemic management.
 
-Login System: Secure login with password hashing (BCrypt).
+## ✨ Features
 
-Student Module:
+### 🔒 Core System
+* **Secure Authentication**: End-to-end encrypted login utilizing password hashing (BCrypt).
+* **Multi-threaded UI**: Core database operations use SwingWorker to ensure a non-blocking, responsive interface.
+* **Maintenance Mode**: Admins can temporarily lock down mutations and access for system maintenance.
 
-View Course Catalog.
+### 🎓 Student Module
+* View the full **Course Catalog**.
+* **Register for Courses** (with real-time capacity and duplicate checking).
+* View personal **Timetable** and scheduled sessions.
+* Access **Grades** and download academic transcripts in CSV format.
+* **Drop courses** seamlessly.
 
-Register for courses (checks capacity and duplicates).
+### 👨‍🏫 Instructor Module
+* View assigned teaching **Sections**.
+* Input, update, and save **Student Grades**.
+* Review comprehensive **Class Statistics** and grade distributions.
 
-View Timetable.
+### 🛡️ Admin Module
+* Provision new **Users** (Students & Instructors).
+* Manage the curriculum: Create new **Courses** and scheduled **Sections**.
+* Update section logistics (Capacity, Room assignments).
+* Toggle overarching **Maintenance Mode**.
 
-View Grades and download transcript (CSV).
+---
 
-Drop courses.
+## 🛠️ Tech Stack
+* **Language**: Java 11+
+* **GUI Framework**: Java Swing (with MigLayout & FlatLaf)
+* **Database**: MySQL 8.x
+* **Build Tool**: Maven
 
-Instructor Module:
+---
 
-View assigned sections.
+## 🚀 Getting Started
 
-Enter grades for students.
+### Prerequisites
+Before running the application, ensure you have the following installed:
+1. **Java Development Kit (JDK)** version 11 or higher.
+2. **MySQL Server**.
+3. **Maven** (optional, recommended for dependency management).
+4. **Git** (for version control).
+5. Any Java-compatible IDE (e.g., VS Code, IntelliJ IDEA, Eclipse).
 
-View class statistics.
+### Database Setup
+The application interfaces with two localized databases: `auth_db` and `erp_db`.
+1. Open MySQL Workbench or your preferred MySQL GUI.
+2. Locate the file `final_setup.sql` in the project's root folder.
+3. Execute the entire SQL script to scaffold the databases, configure tables, and inject sample data.
 
-Admin Module:
+### Configuration
+Update the database connection properties to match your local SQL server credentials:
+1. Navigate to: `src/main/resources/config.properties`.
+2. Update the `user` and `password` fields (default is usually `root` / `root`).
 
-Create new users (Student/Instructor).
+```properties
+auth.db.url=jdbc:mysql://localhost:3306/auth_db
+auth.db.user=root
+auth.db.pass=root
 
-Create new courses and sections.
+erp.db.url=jdbc:mysql://localhost:3306/erp_db
+erp.db.user=root
+erp.db.pass=root
+```
 
-Update section details (room, capacity).
+### Running the Application
+1. Clone the repository and open the project root in your IDE.
+2. Sync/Download Maven dependencies specified in `pom.xml`.
+3. Run the main application file located at: `src/main/java/edu/univ/erp/App.java`
 
-Toggle Maintenance Mode (blocks changes for non-admins).
+---
 
-Prerequisites
-To run this project, you need the following installed on your system:
+## 🔑 Demo Login Credentials
+To quickly explore the application, use these pre-configured accounts:
 
-Java Development Kit (JDK) version 11 or higher.
+| Role | Username | Password |
+|---|---|---|
+| **Admin** | `admin1` | `adminpass` |
+| **Instructor** | `inst1` | `instpass` |
+| **Student** | `stu1` | `stupass1` |
+| **Student** | `achintya shukla` | `achintya` |
 
-MySQL Server.
+---
 
-MySQL Workbench (optional, for easier database setup).
+## 📂 Project Structure
 
-An IDE like VS Code, IntelliJ IDEA, or Eclipse.
+```
+src/main/java/edu/univ/erp
+ ├── auth/      # Authentication logic & BCrypt wrappers
+ ├── data/      # Database connection pooling & config loaders
+ ├── domain/    # Data Transfer Objects (e.g., SectionDetails)
+ ├── service/   # Core Business logic (StudentService, AdminService, InstructorService)
+ ├── ui/        # Swing UI Modules partitioned by Role (admin, instructor, student, auth)
+ └── util/      # Global utility extensions (e.g., CsvExporter)
+```
 
-Maven 
-
-Database Setup
-The application requires two databases: auth_db and erp_db.
-
-Open MySQL Workbench.
-
-Open the file "final_setup.sql" located in the root folder of this project.
-
-Execute the entire script to create the databases and tables, and to insert sample data.
-
-Configuration
-Before running the application, you must configure the database connection settings.
-
-Navigate to the folder: src/main/resources
-
-Open the file "config.properties".
-
-Update the "user" and "password" fields to match your local MySQL credentials. The default is set to "root" for both user and password.
-
-How to Run
-
-Open the project folder in your IDE.
-
-Allow Maven to download the necessary dependencies (listed in pom.xml).
-
-Locate the main file: src/main/java/edu/univ/erp/App.java
-
-Run the App.java file.
-
-Login Credentials
-Use the following sample accounts to test the application. All passwords are set to "pass".
-
-Role: Admin Username: admin1 Password: adminpass
-
-Role: Instructor Username: inst1 Password: instpass
-
-Role: Student Username: stu1 Password: stupass1
-
-Role: Student Username: achintya shukla Password: achintya
-
-Project Structure
-
-src/main/java/edu/univ/erp: Contains the main application code.
-
-auth: Authentication logic.
-
-data: Database connection helper.
-
-domain: Data models (like SectionDetails).
-
-service: Business logic (StudentService, AdminService, etc.).
-
-ui: User interface screens (organized by role).
-
-util: Helper classes (like CsvExporter).
-
-src/main/resources: Contains configuration files and images.
-
-final_setup.sql: SQL script to initialize the database.
-
-Notes
-
-If the application shows "Maintenance Mode is ON", log in as an Admin and turn it off in the System Settings tab.
-
-Duplicate registrations are prevented by the database.
-
-Course capacity must be greater than 0.
+## 📝 Usage Notes
+* If your login presents a **"Maintenance Mode is ON"** alert, log in using the Admin credentials and disable it via the System Settings dashboard.
+* The system enforces foreign-key and logic checks: Duplicate registrations are rejected, and courses must have a capacity `> 0`.
